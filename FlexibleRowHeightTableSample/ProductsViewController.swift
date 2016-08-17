@@ -25,26 +25,42 @@ class ProductsViewController: UITableViewController {
         ("iPod touch", "電話機能の必要ない人は、これが一番いいかもしれないです。なぜならば、とにかく軽い。それに尽きる。ただし、GPSがなかったりするので注意。"),
         ("Apple TV", "これがあれば、わざわざVGAとかHDMIケーブルを伸ばさなくて良くなるんだけど。欲しい。")
     ]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // テーブルビューにカスタムセルを登録
         tableView.registerNib(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "productCell")
+        
+        // 高さの見積りと、実際の高さ（自動計算）を指定
+        tableView.estimatedRowHeight = 75
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     // MARK: - Table view data source
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return products.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("productCell", forIndexPath: indexPath) as! ProductCell
         
         cell.nameLabel.text = products[indexPath.row].name
         cell.descriptionTextView.text = products[indexPath.row].description
-
+        
         return cell
     }
+    
+    // MARK: - Table view delegate
+    
+//    /// セルに対する高さの見積りを指定
+//    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return 75
+//    }
+//    
+//    /// セルの実際の高さを指定（UITableViewAutomaticDimensionを返すと自動計算）
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
 }
